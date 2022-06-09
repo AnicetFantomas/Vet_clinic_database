@@ -16,7 +16,7 @@ SELECT * FROM animals;
 
 BEGIN;
 UPDATE animals SET species='digimon' WHERE name LIKE '%mon%';
-UPDATE animals SET species='pokemon' WHERE species='unspecified';
+UPDATE animals SET species='pokemon' WHERE species IS NULL;
 COMMIT;
 SELECT * FROM animals;
 
@@ -46,4 +46,4 @@ SELECT MAX(escapes_attempts) from animals;
 -- What is the minimum and maximum weight of each type of animal?
 SELECT species, (MIN(weight_kg), MAX(weight_kg)) FROM animals GROUP BY species;
 -- What is the average number of escape attempts per animal type of those born between 1990 and 2000?
-SELECT species, AVG(escapes_attempts) from animals where EXTRACT(YEAR FROM date_of_birth) between 1990;
+SELECT species, AVG(escapes_attempts) from animals where EXTRACT(YEAR FROM date_of_birth) between 1990 AND 2000;
