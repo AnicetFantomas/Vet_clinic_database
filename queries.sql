@@ -8,3 +8,28 @@ SELECT (name, escapes_attempts) FROM animals WHERE weight_kg >10.5;
 SELECT * FROM animals WHERE neutered IS true;
 SELECT * FROM animals WHERE name IN ('Agumon');
 SELECT * FROM animals WHERE weight_kg >=10.4 AND weight_kg <=17.3;
+
+BEGIN;
+UPDATE animals SET species='unspecified';
+ROLLBACK;
+SELECT * FROM animals;
+
+BEGIN;
+UPDATE animals SET species='digimon' WHERE name LIKE '%mon%';
+UPDATE animals SET species='pokemon' WHERE species='unspecified';
+COMMIT;
+SELECT * FROM animals;
+
+BEGIN;
+DELETE FROM animals;
+ROLLBACK;
+SELECT * FROM animals;
+END;
+
+BEGIN;
+DELETE FROM animals WHERE date_of_birth >= '2022-01-01';
+SELECT * FROM animals;
+SAVEPOINT SP1;
+UPDATE animals SET weight_kg = weight_kg * -1;
+ROLLBACK TO SP1;
+UPDATE animals SET weight_kg = weight_kg * -1 WHERE weight_kg < 0;
