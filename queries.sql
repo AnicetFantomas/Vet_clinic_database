@@ -65,3 +65,10 @@ UPDATE animals SET owners_id = 3 WHERE name IN('Devimon', 'Plantmon');
 UPDATE animals SET owners_id = 4 WHERE name IN('Charmander', 'Squirtle', 'Blossom');
 -- Dean Winchester owns Angemon and Boarmon.
 UPDATE animals SET owners_id = 5 WHERE name IN('Angemon', 'Boarmon');
+
+
+-- What animals belong to Melody Pond?
+select name, full_name from animals join owners on animals.owners_id = owners.id where owners.id = 4;
+-- List of all animals that are pokemon (their type is Pokemon).
+select animals.name from animals join species on animals.species_id = species.id where species.id = 1;
+-- List all owners and their animals, remember to include those that don't own any animal.
