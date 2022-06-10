@@ -16,3 +16,20 @@ TABLESPACE pg_default;
 
 ALTER TABLE IF EXISTS public.animals
     OWNER to postgres;
+
+-- Table: public.owners
+
+-- DROP TABLE IF EXISTS public.owners;
+
+CREATE TABLE IF NOT EXISTS public.owners
+(
+    full_name character(200) COLLATE pg_catalog."default" NOT NULL,
+    age integer NOT NULL,
+    id bigint NOT NULL DEFAULT nextval('owners_id_seq'::regclass),
+    CONSTRAINT owners_pkey PRIMARY KEY (id)
+)
+
+TABLESPACE pg_default;
+
+ALTER TABLE IF EXISTS public.owners
+    OWNER to postgres;
