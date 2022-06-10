@@ -75,3 +75,14 @@ select animals.name from animals join species on animals.species_id = species.id
 SELECT full_name, name FROM animals INNER JOIN owners ON owners.id = animals.owners_id;
 -- How many animals are there per species?
 SELECT count(species_id), (species.name) FROM animals JOIN species ON animals.species_id = species.id GROUP BY species.name;
+
+-- List all Digimon owned by Jennifer Orwell.
+SELECT (animals.name) AS animals_name, 
+(species.name) as species_name, 
+full_name FROM animals JOIN species
+ON animals.species_id = species.id 
+JOIN owners ON animals.owners_id = owners.id WHERE species.id = 2 AND owners_id = 2;
+-- List all animals owned by Dean Winchester that haven't tried to escape.
+SELECT name, full_name FROM animals FULL OUTER JOIN owners ON animals.owners_id = owners.id WHERE escapes_attempts = 0 AND owners_id = 5;
+-- Who owns the most animals?
+SELECT full_name, count(owners_id) FROM owners JOIN animals ON owners.id = animals.owners_id GROUP BY full_name ORDER BY count(name) DESC;
