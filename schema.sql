@@ -33,3 +33,19 @@ TABLESPACE pg_default;
 
 ALTER TABLE IF EXISTS public.owners
     OWNER to postgres;
+
+-- Table: public.species
+
+-- DROP TABLE IF EXISTS public.species;
+
+CREATE TABLE IF NOT EXISTS public.species
+(
+    id bigint NOT NULL DEFAULT nextval('species_id_seq'::regclass),
+    name character(100) COLLATE pg_catalog."default",
+    CONSTRAINT species_pkey PRIMARY KEY (id)
+)
+
+TABLESPACE pg_default;
+
+ALTER TABLE IF EXISTS public.species
+    OWNER to postgres;
