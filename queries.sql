@@ -50,15 +50,18 @@ SELECT species, (MIN(weight_kg), MAX(weight_kg)) FROM animals GROUP BY species;
 SELECT species, AVG(escapes_attempts) from animals where EXTRACT(YEAR FROM date_of_birth) between 1990 AND 2000;
 
 
+-- If the name ends in "mon" it will be Digimon
+UPDATE animals SET species_id = 1WHERE name NOT LIKE '%mon';
+-- All other animals are Pokemon
+UPDATE animalsSET species_id = 2  WHERE name LIKE '%mon';
 
--- Make sure that id is set as autoincremented PRIMARY KEY
-ALTER TABLE your_table ADD COLUMN key_column BIGSERIAL PRIMARY KEY;
--- Remove column species
-ALTER TABLE animals DROP COLUMN species;
--- Add column species_id which is a foreign key referencing species table
-ALTER TABLE animals ADD FOREIGN KEY (species_id) REFERENCES species(id);
--- Add column owner_id which is a foreign key referencing the owners table
-ALTER TABLE animals ADD FOREIGN KEY (owners_id) REFERENCES owners(id);
-
-
-
+-- Sam Smith owns Agumon.
+UPDATE animals SET owners_id = 1 WHERE name = 'Agumon';
+-- Jennifer Orwell owns Gabumon and Pikachu.
+UPDATE animals SET owners_id = 2 WHERE name IN('Gabumon', 'Pikachu');
+-- Bob owns Devimon and Plantmon.
+UPDATE animals SET owners_id = 3 WHERE name IN('Devimon', 'Plantmon');
+-- Melody Pond owns Charmander, Squirtle, and Blossom.
+UPDATE animals SET owners_id = 4 WHERE name IN('Charmander', 'Squirtle', 'Blossom');
+-- Dean Winchester owns Angemon and Boarmon.
+UPDATE animals SET owners_id = 5 WHERE name IN('Angemon', 'Boarmon');

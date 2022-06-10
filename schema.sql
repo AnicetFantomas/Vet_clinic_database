@@ -12,12 +12,23 @@ CREATE TABLE IF NOT EXISTS public.animals
     weight_kg real NOT NULL,
     name character varying(100) COLLATE pg_catalog."default",
     id bigint NOT NULL DEFAULT nextval('animals_id_seq'::regclass),
-    CONSTRAINT animals_pkey PRIMARY KEY (id)
+    species_id integer,
+    owners_id integer,
+    CONSTRAINT animals_pkey PRIMARY KEY (id),
+    CONSTRAINT animals_owners_id_fkey FOREIGN KEY (owners_id)
+        REFERENCES public.owners (id) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION,
+    CONSTRAINT animals_species_id_fkey FOREIGN KEY (species_id)
+        REFERENCES public.species (id) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION
 )
 
 TABLESPACE pg_default;
 
 ALTER TABLE IF EXISTS public.animals
+    OWNER to postgres;c.animals
     OWNER to postgres;
 
 
@@ -54,3 +65,13 @@ TABLESPACE pg_default;
 
 ALTER TABLE IF EXISTS public.species
     OWNER to postgres;
+
+
+-- Make sure that id is set as autoincremented PRIMARY KEY
+ALTER TABLE your_table ADD COLUMN key_column BIGSERIAL PRIMARY KEY;
+-- Remove column species
+ALTER TABLE animals DROP COLUMN species;
+-- Add column species_id which is a foreign key referencing species table
+ALTER TABLE animals ADD FOREIGN KEY (species_id) REFERENCES species(id);
+-- Add column owner_id which is a foreign key referencing the owners table
+ALTER TABLE animals ADD FOREIGN KEY (owners_id) REFERENCES owners(id);
