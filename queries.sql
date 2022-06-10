@@ -48,3 +48,14 @@ SELECT MAX(escapes_attempts) from animals;
 SELECT species, (MIN(weight_kg), MAX(weight_kg)) FROM animals GROUP BY species;
 -- What is the average number of escape attempts per animal type of those born between 1990 and 2000?
 SELECT species, AVG(escapes_attempts) from animals where EXTRACT(YEAR FROM date_of_birth) between 1990 AND 2000;
+
+
+
+-- Make sure that id is set as autoincremented PRIMARY KEY
+ALTER TABLE your_table ADD COLUMN key_column BIGSERIAL PRIMARY KEY;
+-- Remove column species
+ALTER TABLE animals DROP COLUMN species;
+-- Add column species_id which is a foreign key referencing species table
+ALTER TABLE animals ADD FOREIGN KEY (species_id) REFERENCES species(id);
+-- Add column owner_id which is a foreign key referencing the owners table
+ALTER TABLE animals ADD FOREIGN KEY (owners_id) REFERENCES owners(id);
