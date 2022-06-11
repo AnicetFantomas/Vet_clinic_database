@@ -86,3 +86,49 @@ JOIN owners ON animals.owners_id = owners.id WHERE species.id = 2 AND owners_id 
 SELECT name, full_name FROM animals FULL OUTER JOIN owners ON animals.owners_id = owners.id WHERE escapes_attempts = 0 AND owners_id = 5;
 -- Who owns the most animals?
 SELECT full_name, count(owners_id) FROM owners JOIN animals ON owners.id = animals.owners_id GROUP BY full_name ORDER BY count(name) DESC;
+
+-- Who was the last animal seen by William Tatcher?
+SELECT (animals.name) AS animalName, (vets.name) AS vetsName, (visits.date_of_visit) AS dateVisited
+FROM animals
+JOIN visits ON animals.id = visits.animals_id
+JOIN vets ON vets.id = visits.vets_id
+WHERE vets_id = 1
+ORDER BY (visits.date_of_visit) DESC
+LIMIT 1;
+
+-- How many different animals did Stephanie Mendez see?
+SELECT COUNT(visits.vets_id) AS Different_animals_seen, (vets.name) AS vets_name
+FROM visits
+JOIN vets ON visits.vets_id = vets.id
+WHERE vets.id = 3
+GROUP BY vets.name;
+
+-- List all vets and their specialties, including vets with no specialties.
+SELECT (vets.name) as vets_name, (species.name) as vets_speciality
+FROM vets
+FULL OUTER JOIN specializations ON vets.id = specializations.vets_id
+FULL OUTER JOIN species ON species.id = specializations.species_id;
+
+-- List all animals that visited Stephanie Mendez between April 1st and August 30th, 2020.
+SELECT (animals.name) AS animals_visited_Stephanie
+FROM animals
+FULL OUTER JOIN visits ON animals.id = visits.animals_id
+FULL OUTER JOIN vets ON vets.id = visits.vets_id
+WHERE vets.id = 3 AND visits.date_of_visit BETWEEN '2020-04-01' AND '2020-08-30';
+
+-- What animal has the most visits to vets?
+SELECT (animals.name) AS animals_name, COUNT(visits.animals_id) AS number_of_visits
+FROM animals
+FULL OUTER JOIN visits ON animals.id = visits.animals_id
+GROUP BY animals.name
+ORDER BY COUNT(visits.animals_id) DESC
+LIMIT 1;
+
+-- Who was Maisy Smith's first visit?
+SELECT (animals.name) AS animalName, (vets.name) AS vetsName, (visits.date_of_visit) AS dateVisited
+FROM animals
+JOIN visits ON animals.id = visits.animals_id
+JOIN vets ON vets.id = visits.vets_id
+WHERE vets_id = 2
+ORDER BY (visits.date_of_visit)
+LIMIT 1;
