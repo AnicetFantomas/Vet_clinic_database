@@ -37,3 +37,10 @@ VALUES('Sam Smith', 34),
 INSERT INTO species (name)
 VALUES('Pokemon'),
 	('Digimon');
+
+-- Insert the following data for vets:
+INSERT INTO vets (name, date_of_graduation, age)
+VALUES('William Tatcher', '2000-04-23', 45),
+	  ('Maisy Smith', '2019-01-17', 26),
+	  ('Stephanie Mendez', '1981-05-04', 64),
+	  ('Jack Harkness', '2008-06-08', 38)
