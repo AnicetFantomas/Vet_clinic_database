@@ -67,6 +67,24 @@ ALTER TABLE IF EXISTS public.species
     OWNER to postgres;
 
 
+-- Table: public.vets
+
+-- DROP TABLE IF EXISTS public.vets;
+
+CREATE TABLE IF NOT EXISTS public.vets
+(
+    id bigint NOT NULL DEFAULT nextval('vets_id_seq'::regclass),
+    name character(1) COLLATE pg_catalog."default" NOT NULL,
+    "Age" integer NOT NULL,
+    date_of_graduation date NOT NULL,
+    CONSTRAINT vets_pkey PRIMARY KEY (id)
+)
+
+TABLESPACE pg_default;
+
+ALTER TABLE IF EXISTS public.vets
+    OWNER to postgres;
+
 -- Make sure that id is set as autoincremented PRIMARY KEY
 ALTER TABLE your_table ADD COLUMN key_column BIGSERIAL PRIMARY KEY;
 -- Remove column species
